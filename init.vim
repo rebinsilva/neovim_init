@@ -44,6 +44,11 @@ Plug 'skywind3000/gutentags_plus'
 Plug 'sbdchd/neoformat'
 " Plug 'vim-latex/vim-latex'
 Plug 'lervag/vimtex'
+Plug 'puremourning/vimspector'
+Plug 'mattn/emmet-vim', {'for': 'html'}
+Plug 'mboughaba/i3config.vim'
+Plug 'udalov/kotlin-vim', {'for': 'kotlin'}
+Plug 'python-mode/python-mode', { 'for': 'python'}
 
 " Initialize plugin system
 call plug#end()
@@ -103,7 +108,7 @@ let g:syntastic_cuda_compiler_options = "-std=c11"
 let g:ycm_show_diagnostics_ui = 0 " Disabling ycm checkers for syntastic
 set sessionoptions-=blank "To remove error window from getting saved
 let g:syntastic_shell = "/bin/sh"
-let g:syntastic_python_checkers = ["python"]
+" let g:syntastic_python_checkers = ["python"]
 let g:syntastic_tex_checkers = []
 " }}}
 " For plugin nerdTree {{{
@@ -143,6 +148,10 @@ inoremap <silent> ^^ ^^<c-r>=UltiSnips#Anon('^{$1}$0', '^^', '', 'i')<cr>
 
 nnoremap <localleader>lt :call vimtex#fzf#run()<cr>
 " let g:vimtex_compiler_progname = 'nvr'
+" }}}
+" For plugin Vimspector {{{
+" packadd! vimspector
+let g:vimspector_enable_mappings = 'HUMAN'
 " }}}
 
 " For Cscope {{{
@@ -237,8 +246,9 @@ packadd! shellmenu
 packadd! justify
 runtime! ftplugin/man.vim
 
-set background=dark
+" set background=dark
 colorscheme gruvbox
+" colorscheme solarized
 
 let python_highlight_all=1
 syntax on
@@ -247,7 +257,7 @@ set mouse=a
 set number
 set showcmd
 set linebreak
-set clipboard+=unnamed
+set clipboard=unnamedplus
 set incsearch
 set softtabstop=4
 set cursorline
