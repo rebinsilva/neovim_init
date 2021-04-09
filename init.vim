@@ -108,7 +108,7 @@ let g:syntastic_cuda_compiler_options = "-std=c11"
 let g:ycm_show_diagnostics_ui = 0 " Disabling ycm checkers for syntastic
 set sessionoptions-=blank "To remove error window from getting saved
 let g:syntastic_shell = "/bin/sh"
-" let g:syntastic_python_checkers = ["python"]
+let g:syntastic_python_checkers = ["python"]
 let g:syntastic_tex_checkers = []
 " }}}
 " For plugin nerdTree {{{
