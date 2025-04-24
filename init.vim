@@ -26,8 +26,8 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 " Plug 'christoomey/vim-run-interactive'
 " Plugin 'gabrielsimoes/cfparser.vim'
-Plug 'vim-syntastic/syntastic'
-" Plug 'w0rp/ale'
+" Plug 'vim-syntastic/syntastic'
+Plug 'dense-analysis/ale'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'tpope/vim-fugitive'
 " Plug 'vim-scripts/indentpython.vim'
@@ -49,6 +49,8 @@ Plug 'mattn/emmet-vim', {'for': 'html'}
 Plug 'mboughaba/i3config.vim'
 Plug 'udalov/kotlin-vim', {'for': 'kotlin'}
 Plug 'python-mode/python-mode', { 'for': 'python'}
+Plug 'rust-lang/rust.vim'
+Plug 'preservim/tagbar'
 
 " Initialize plugin system
 call plug#end()
@@ -111,6 +113,38 @@ let g:syntastic_shell = "/bin/sh"
 let g:syntastic_python_checkers = ["python"]
 let g:syntastic_tex_checkers = []
 " }}}
+
+" For plugin ALE {{{
+let g:ale_fix_on_save = 1
+let g:airline#extensions#ale#enabled = 1
+
+
+" Turn off Syntax highlighting to speeden up ALE fix
+
+function! SyntaxTurnOff()
+  "Turns syntax off only in current buffer
+  exec "syntax clear"
+endfunction
+
+function! SyntaxTurnOn()
+  exec "syntax on"
+endfunction
+
+augroup SyntaxTempOffGroup
+    autocmd!
+    autocmd User ALEFixPre     call SyntaxTurnOff()
+    autocmd User ALEFixPost    call SyntaxTurnOn()
+augroup END
+
+" FIXERS
+let g:ale_fixers = {
+	\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+	\ 'cpp': ['clang-format'],
+    \}
+let g:ale_c_clangformat_options = "-style='{BasedOnStyle: Google, IndentWidth: 4, UseTab: Always, TabWidth: 4 }'"
+
+
+" }}}
 " For plugin nerdTree {{{
 " autocmd vimenter * NERDTree
 map <C-q> :NERDTreeToggle<CR>
@@ -123,6 +157,12 @@ let g:calendar_google_task = 1
 " For plugin Vimwiki {{{
 let g:vimwiki_use_calendar = 1
 let g:vimwiki_use_mouse = 1
+let g:vimwiki_list = [{'path': '~/vimwiki',
+        \ 'template_path': '~/.config/nvim/vimwiki/templates/',
+        \ 'template_default': 'default',
+        \ 'template_ext': '.html',
+		\ 'auto_export': 1,
+		\ 'auto_toc': 1}]
 " }}}
 " For plugin vimtex {{{
 " With neovim, it is useful to start the LaTeX editing session with `nvim --listen /tmp/nvimserver` (e.g. by using an alias)
@@ -152,6 +192,9 @@ nnoremap <localleader>lt :call vimtex#fzf#run()<cr>
 " For plugin Vimspector {{{
 " packadd! vimspector
 let g:vimspector_enable_mappings = 'HUMAN'
+" }}}
+" For plugin tagbar {{{
+nmap <F4> :TagbarToggle<CR>
 " }}}
 
 " For Cscope {{{
@@ -188,7 +231,7 @@ if has("cscope")
 	nmap <Space>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
 	nmap <Space>d :cs find d <C-R>=expand("<cword>")<CR><CR>
 	nmap <Space>a :cs find a <C-R>=expand("<cword>")<CR><CR>
-	
+
 	nmap <C-Space>s :vert scs find s <C-R>=expand("<cword>")<CR><CR>
 	nmap <C-Space>g :vert scs find g <C-R>=expand("<cword>")<CR><CR>
 	nmap <C-Space>c :vert scs find c <C-R>=expand("<cword>")<CR><CR>
@@ -223,6 +266,8 @@ set linebreak
 set clipboard=unnamedplus
 set incsearch
 set softtabstop=4
+set tabstop=4
+set shiftwidth=4
 set cursorline
 set mousefocus
 set mousehide
