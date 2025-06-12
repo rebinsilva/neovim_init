@@ -140,6 +140,7 @@ augroup END
 let g:ale_fixers = {
 	\   '*': ['remove_trailing_lines', 'trim_whitespace'],
 	\ 'cpp': ['clang-format'],
+	\ 'python': ['ruff'],
     \}
 let g:ale_c_clangformat_options = "-style='{BasedOnStyle: Google, IndentWidth: 4, UseTab: Always, TabWidth: 4 }'"
 
