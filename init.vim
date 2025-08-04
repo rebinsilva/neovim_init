@@ -1,5 +1,8 @@
 " vim:set foldmethod=marker:
 "
+" TODO
+" fzf.vim needs configuring (different from fzf plugin)
+"
 " Specify a directory for plugins
 " - For Neovim: ~/.local/share/nvim/plugged
 " - Avoid using standard Vim directory names like 'plugin'
@@ -18,7 +21,8 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'scrooloose/nerdtree'
 
 " Plugin outside ~/.vim/plugged with post-update hook
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py --clangd-completer' }
 " Plug 'WolfgangMehner/vim-plugins'
 " Plugin 'nathanaelkane/vim-indent-guides'
@@ -51,6 +55,7 @@ Plug 'udalov/kotlin-vim', {'for': 'kotlin'}
 Plug 'python-mode/python-mode', { 'for': 'python'}
 Plug 'rust-lang/rust.vim'
 Plug 'preservim/tagbar'
+Plug 'goerz/jupytext.nvim'
 
 " Initialize plugin system
 call plug#end()
